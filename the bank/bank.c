@@ -9,6 +9,8 @@ void testPassword();
 void load (); 
 int mainMenu() ; 
 
+//structures
+typedef struct account ; 
 
 //variables 
 char correctPassword[20] = "123"; 
@@ -106,7 +108,20 @@ static int b ;
  return b ; 
 }
 
-
+typedef struct account {
+   char date[10] ; 
+   int  accNum ; 
+   char name[20] ; 
+   char dateBirth[10]; 
+   int age ; 
+   char adress[20];
+   int citizenshipNum ; 
+   int phoneNum ; 
+   int accDeposit ; 
+   int amountDeposit ; 
+   int accType ; 
+   
+}
 
 
 
