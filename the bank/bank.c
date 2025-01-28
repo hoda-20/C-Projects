@@ -8,9 +8,22 @@ char* password();
 void testPassword();
 void load (); 
 int mainMenu() ; 
+void makeNewAccount();
 
 //structures
-typedef struct account ; 
+typedef struct {
+   char date[10] ; 
+   int  accNum ; 
+   char name[20] ; 
+   char dateBirth[10]; 
+   int age ; 
+   char adress[20];
+   int citizenshipNum ; 
+   int phoneNum ; 
+   int accDeposit ; 
+   int amountDeposit ; 
+   int accType ; 
+} newAccount;
 
 //variables 
 char correctPassword[20] = "123"; 
@@ -20,19 +33,46 @@ int main (){
 
  //testPassword() ; 
  //load (); 
- mainMenu();
- switch (mainMenu())
- {
- case  1 :
-    /* code */
-    break;
- 
- default:
-    break;
- }
+ //mainMenu();
+ //makeNewAccount();
+    newAccount account[50] ; 
+   for (int i= 0; i<50 ; i++ ){
 
- 
+   printf("Enter today's date : "); 
+   scanf("%s", account[i].date);
+   fflush(stdin); 
+   printf("\nEnter the account number : ");
+   scanf("%d", &account[i].accNum ); 
+   fflush(stdin); 
+   printf("\nEnter your name : "); 
+   scanf("%s" , account[i].name);
+   fflush(stdin); 
+   printf("\n Enter date of birth :");
+   scanf("%s" , account[i].dateBirth);
+   fflush(stdin); 
+   printf("\n Enter your age :");
+   scanf("%d" , &account[i].age); 
+   fflush(stdin); 
+   printf("\n Enter your adress :");
+   scanf("%s" , account[i].adress);
+   fflush(stdin); 
+   printf("\n Enter citizenship number :");
+   scanf("%d" , &account[i].citizenshipNum);
+   fflush(stdin); 
+   printf("\n Enter your phone number :");
+   scanf("%d" , &account[i].phoneNum);
+   fflush(stdin); 
+   printf("\n Enter the amount to deposit :");
+   scanf("%d" , &account[i].amountDeposit);
+   fflush(stdin); 
+   printf("\n Type of account : \n -Saving \n -Current \n -Fixed1 (for 1 year) \n -Fixed2 (for 2 years) \n -Fixed3 (for 3 years) \n     Enter your choice : ");
+   scanf("%s" , account[i].accType); 
+   fflush(stdin); 
+   printf("\n Account created successfully :)"); 
 
+   }
+
+   
 
     return 0 ; 
 }
@@ -108,20 +148,40 @@ static int b ;
  return b ; 
 }
 
-typedef struct account {
-   char date[10] ; 
-   int  accNum ; 
-   char name[20] ; 
-   char dateBirth[10]; 
-   int age ; 
-   char adress[20];
-   int citizenshipNum ; 
-   int phoneNum ; 
-   int accDeposit ; 
-   int amountDeposit ; 
-   int accType ; 
-   
-}
+
+
+/*void makeNewAccount ( ){
+   static  newAccount account[50] ; 
+    
+
+   for (int i= 0 ; i<50 ; i++ ){
+
+   printf("Enter today's date : "); 
+   scanf("%s", &account[i].date);
+   printf("\nEnter the account number : ");
+   scanf("%d", &account[i].accNum ); 
+   printf("\nEnter your name : "); 
+   scanf("%s" , &account[i].name); 
+   printf("\n Enter date of birth :");
+   scanf("%s" , &account[i].dateBirth);
+   printf("\n Enter your age :");
+   scanf("%d" , &account[i].age); 
+   printf("\n Enter your adress :");
+   scanf("%s" , &account[i].adress);
+   printf("\n Enter citizenship number :");
+   scanf("%d" , &account[i].citizenshipNum);
+   printf("\n Enter your phone number :");
+   scanf("%d" , &account[i].phoneNum);
+   printf("\n Enter the amount to deposit :");
+   scanf("%d" , &account[i].amountDeposit);
+   printf("\n Type of account : \n -Saving \n -Current \n -Fixed1 (for 1 year) \n -Fixed2 (for 2 years) \n -Fixed3 (for 3 years) \n     Enter your choice : ");
+   scanf("%s" , &account[i].accType); 
+
+   printf("\n Account created successfully :)"); 
+
+   }
+
+}*/
 
 
 
