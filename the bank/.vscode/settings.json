@@ -1,0 +1,10 @@
+"editor.tokenColorCustomizations": {
+   "textMateRules": [
+      {
+         "scope": "string",
+         "settings": {
+            "foreground": "#FFD700"  // Change this to your preferred color
+         }
+      }
+   ]
+}
