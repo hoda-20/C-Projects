@@ -141,8 +141,7 @@ void testPassword (){
    
    //printf("the pass is %s" , password());
 
-   while (strcmp (correctPassword , password() ) !=0 ){
-      
+   while (strcmp (correctPassword , password() ) !=0 ){  
     printf("\nWrong password"); 
    
    } 
@@ -417,34 +416,18 @@ void ClearScreen() {
 }
 
 void CustumorList(newAccount *account){
+   printf("number of accounts created up till now : %d\n",M);
    printf("+------------+------------+---------------+------------+------------+\n");
    printf("| Acc Number | Name       | Phone         | Address    | Deposit    |\n");
    printf("+------------+------------+---------------+------------+------------+\n");
    for (int i = 0 ; i< M ; i++ ){
-      printf("| %-10d | %-10s | %-13s | %-10s | %-10d |\n",
+      printf("| %-10d | %-10s | %-13d | %-10s | %-10d |\n",
          account[i].accNum, account[i].name, account[i].phoneNum, account[i].adress, account[i].amountDeposit);
 
    }
    printf("+------------+------------+---------------+------------+------------+\n");
    userChoice();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
