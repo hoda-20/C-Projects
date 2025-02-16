@@ -30,7 +30,7 @@ typedef struct {
 char* password(); 
 void  testPassword();
 void  load (); 
-int   mainMenu() ; 
+char   mainMenu() ; 
 void  makeNewAccount(newAccount *account);
 void  checkExistingAccount(newAccount *account); 
 void  userChoice();
@@ -39,7 +39,8 @@ void  ChangeAccountInfo(newAccount *account);
 void  GetDate(char CurrentDate[]);
 void  Transactions(newAccount *acccount); 
 void  ClearScreen() ;
-void CustumorList(newAccount *account);
+void  CustumorList(newAccount *account);
+void  clearInputBuffer() ;
 
 
 
@@ -47,7 +48,7 @@ void CustumorList(newAccount *account);
 int main (){
    //Variables : 
     newAccount account[N]; 
-    int choice ; 
+    char choice ; 
 
    //Password
     ClearScreen();
@@ -60,32 +61,32 @@ int main (){
          switch (choice)
          {
             
-         case 1:
+         case '1':
             ClearScreen();
             makeNewAccount(account);
             break;
 
-         case 2 : 
+         case '2' : 
             ClearScreen();
             ChangeAccountInfo(account);
          break ; 
 
-         case 3 : 
+         case '3' : 
             ClearScreen();
             Transactions(account); 
          break ;
         
-         case 4 :
+         case '4' :
             ClearScreen();
             checkExistingAccount(account);
          break ;
 
-         case 6 :
+         case '6' :
           ClearScreen(); 
           CustumorList(account);
           break ; 
 
-         case 7 : 
+         case '7' : 
          printf("------exiting programme");
          for(int j = 0 ; j < 6 ; j++ ){
            printf("-"); 
@@ -95,14 +96,20 @@ int main (){
          break; 
 
          default:
-            printf("Choose from the list above please ");
-            Sleep(3000);
+         ClearScreen();
+         printf("Invalid choice! Choose from the list above please.\n");
+         printf("Press any key to continue...");
+         _getch(); // Wait for the user to press a key
+         
+         break; 
+            
+            
          
          }
 
 
 
-      }while(choice!=7);
+      }while(1);
     
     return 0 ; 
 }
@@ -158,9 +165,9 @@ void load ( ){
   } 
 }
 
-int mainMenu (){
+char mainMenu (){
    ClearScreen();
-static int choice; 
+ char choice; 
  printf("                        ");
  printf("\033[;4;33mCustumor account banking management system\033[0m\n");
  printf("                                  ");
@@ -175,7 +182,8 @@ static int choice;
  printf("          ");
  printf("\033[1;36mEnter your choice please:\033[0m  ");
  
- scanf("%d", &choice);
+ scanf(" %c", &choice);
+ clearInputBuffer();
  return choice ; 
 }
 
@@ -188,11 +196,11 @@ void makeNewAccount (newAccount *account){
     while (i<N){
 
    printf("-------Custumor number %d---------",i);
-   printf("\nEnter today's date : "); 
+   printf("\n Enter today's date : "); 
    scanf("%s", &account[i].dateDeposite);
-   printf("\nEnter the account number : ");
+   printf("\n Enter the account number : ");
    scanf("%d", &account[i].accNum ); 
-   printf("\nEnter your name : "); 
+   printf("\n Enter your name : "); 
    scanf("%s" , &account[i].name); 
    printf("\n Enter date of birth (day/month/year) :");
    scanf("%s" , &account[i].dateBirth);
@@ -261,11 +269,12 @@ void checkExistingAccount(newAccount *account){
 }
 
 void userChoice(){
-   int choice;
+   char choice;
    printf("\nEnter a key to return to the main menu and 0 to exit : ");  
-   scanf("%d",&choice); 
+   scanf(" %c",&choice); 
+   clearInputBuffer();
 
-   if (choice == 0 ){
+   if (choice =='0'){
        printf("------exiting programme");
        for(int j = 0 ; j < 6 ; j++ ){
          printf("-"); 
@@ -328,7 +337,7 @@ void ChangeAccountInfo(newAccount *account){
   }
   //account does not exist 
   if (found == 0 ){
-   printf("account does not exist , enter a key to return to the main menu and maek an account , or 0 to exit \n");
+   printf("account does not exist , enter a key to return to the main menu and make an account , or 0 to exit \n");
    scanf("%d",&choice); 
    if (choice == 0 ){
          printf("------exiting programme");
@@ -416,7 +425,7 @@ void ClearScreen() {
 }
 
 void CustumorList(newAccount *account){
-   printf("number of accounts created up till now : %d\n",M);
+   printf("Number of accounts created up till now : %d\n",M);
    printf("+------------+------------+---------------+------------+------------+\n");
    printf("| Acc Number | Name       | Phone         | Address    | Deposit    |\n");
    printf("+------------+------------+---------------+------------+------------+\n");
@@ -429,6 +438,8 @@ void CustumorList(newAccount *account){
    userChoice();
 }
 
-
+void clearInputBuffer() {
+   while (getchar() != '\n'); // Clear all characters until newline
+}
 
 
