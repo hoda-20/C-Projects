@@ -41,6 +41,7 @@ void  Transactions(newAccount *acccount);
 void  ClearScreen() ;
 void  CustumorList(newAccount *account);
 void  clearInputBuffer() ;
+void  DeleteAccount(newAccount *account); 
 
 
 
@@ -81,10 +82,17 @@ int main (){
             checkExistingAccount(account);
          break ;
 
-         case '6' :
+         case '5' : 
+          ClearScreen(); 
+          DeleteAccount(account ); 
+          break ;
+
+          case '6' :
           ClearScreen(); 
           CustumorList(account);
           break ; 
+
+          
 
          case '7' : 
          printf("------exiting programme");
@@ -99,7 +107,7 @@ int main (){
          ClearScreen();
          printf("Invalid choice! Choose from the list above please.\n");
          printf("Press any key to continue...");
-         _getch(); // Wait for the user to press a key
+         _getch(); 
          
          break; 
             
@@ -114,6 +122,7 @@ int main (){
     return 0 ; 
 }
 
+//Password functions
 char* password (){
    char ch ; 
    static char pass[20] ; 
@@ -140,13 +149,13 @@ char* password (){
   pass[i] = '\0' ; 
   return pass ; 
  
-  //printf("your password is : %s", pass ); 
+  
 }
 
 void testPassword (){
    
    
-   //printf("the pass is %s" , password());
+   
 
    while (strcmp (correctPassword , password() ) !=0 ){  
     printf("\nWrong password"); 
@@ -155,9 +164,9 @@ void testPassword (){
    printf("\nCorrect password !");
 }
 
-void load ( ){
-
-  printf("\nloading") ; 
+void load ( ){ 
+  
+   printf("\nloading") ; 
   for (int i = 0 ; i < 5 ; i++ ){
     printf("."); 
     Sleep(1000); 
@@ -165,6 +174,8 @@ void load ( ){
   } 
 }
 
+
+// Menu functions 
 char mainMenu (){
    ClearScreen();
  char choice; 
@@ -229,78 +240,6 @@ void makeNewAccount (newAccount *account){
 
 }
 
-void checkExistingAccount(newAccount *account){
-   int choice , acNum  ;
-   int found = 0 ; 
-   char name[30];
-    do { printf("Do you want to check by :\n1:Account number\n2:Name  "); 
-         scanf("%d",&choice); 
-   }while (choice !=1 && choice !=2);
-
-      //Search by account number 
-   if (choice == 1 ){
-      printf("Enter the account number "); 
-      scanf("%d",&acNum); 
-      for (int i = 0 ; i < N ; i++ ){
-      if (account[i].accNum == acNum ){
-            PrintAccountInfos(account , i);
-            found = 1 ; 
-            break;
-      }
-   }
-       if (found == 0 ){ printf("Account not found , please return to the main menu to creat one ") ;}
-
-      //Search by name
-   } else if (choice == 2 ){
-      printf("Enter the name "); 
-      scanf("%s", &name); 
-
-      for (int i = 0 ; i < N ; i++ ){
-         if ((strcmp(name,account[i].name))==0 ){
-            PrintAccountInfos(account , i); 
-               found = 1 ; 
-               break ; 
-         } 
-    }
-         if (found == 0 ){printf("Account not found ! Please return to the main menu to creat one "); }
-} 
-   userChoice();
-
-}
-
-void userChoice(){
-   char choice;
-   printf("\nEnter a key to return to the main menu and 0 to exit : ");  
-   scanf(" %c",&choice); 
-   clearInputBuffer();
-
-   if (choice =='0'){
-       printf("------exiting programme");
-       for(int j = 0 ; j < 6 ; j++ ){
-         printf("-"); 
-         Sleep(1000);  
-       } 
-       exit(0);
-   }
-
-}
-
-void PrintAccountInfos(newAccount *account , int i ){
-   printf("\n--- Account Details ---\n"); 
-   printf("Account Number: %d\n", account[i].accNum);
-   printf("Name: %s\n", account[i].name);
-   printf("Date of Birth: %s\n", account[i].dateBirth);
-   printf("Age: %d\n", account[i].age);
-   printf("Address: %s\n", account[i].adress);
-   printf("Citizenship Number: %d\n", account[i].citizenshipNum);
-   printf("Phone Number: %d\n", account[i].phoneNum);
-   printf("Account Type: %s\n", account[i].accType);
-   printf("Amount Deposited: %d\n", account[i].amountDeposit);
-   printf("Date of deposite: %s\n", account[i].dateDeposite);
-
-   printf("-----------------------\n");
-}
-
 void ChangeAccountInfo(newAccount *account){
    int accNum , choice , choice1 , newPhoneNumber; 
    int found = 0 ; 
@@ -351,15 +290,6 @@ void ChangeAccountInfo(newAccount *account){
 }
    
   userChoice();
-
-}
-
-void GetDate(char CurrentDate[]){
-
-   time_t t ; //store time
-   time(&t) ; // get time 
-   struct tm *today = localtime(&t); // convert 
-   sprintf(CurrentDate, "%02d/%02d/%04d", today->tm_mday, today->tm_mon + 1, today->tm_year + 1900); // store date in CurrentDate
 
 }
 
@@ -420,8 +350,84 @@ void Transactions(newAccount *account){
  userChoice();
 }
 
-void ClearScreen() {
-   system("cls"); 
+void checkExistingAccount(newAccount *account){
+   int choice , acNum  ;
+   int found = 0 ; 
+   char name[30];
+    do { printf("Do you want to check by :\n1:Account number\n2:Name  "); 
+         scanf("%d",&choice); 
+   }while (choice !=1 && choice !=2);
+
+      //Search by account number 
+   if (choice == 1 ){
+      printf("Enter the account number "); 
+      scanf("%d",&acNum); 
+      for (int i = 0 ; i < N ; i++ ){
+      if (account[i].accNum == acNum ){
+            PrintAccountInfos(account , i);
+            found = 1 ; 
+            break;
+      }
+   }
+       if (found == 0 ){ printf("Account not found , please return to the main menu to creat one ") ;}
+
+      //Search by name
+   } else if (choice == 2 ){
+      printf("Enter the name "); 
+      scanf("%s", &name); 
+
+      for (int i = 0 ; i < N ; i++ ){
+         if ((strcmp(name,account[i].name))==0 ){
+            PrintAccountInfos(account , i); 
+               found = 1 ; 
+               break ; 
+         } 
+    }
+         if (found == 0 ){printf("Account not found ! Please return to the main menu to creat one "); }
+} 
+   userChoice();
+
+}
+
+void  DeleteAccount(newAccount *account ){
+   int found = 0 , accNum ;
+   char choice ; 
+   printf("Enter the account number of the custumor whose informations you want to delete :  "); 
+   scanf("%d",&accNum);
+   for (int i = 0 ; i < N ; i++ ){
+      if (account[i].accNum == accNum){
+         found = 1 ; 
+         for (int j = i ; j<N ; j++){
+            account[j] = account[j+1]; 
+
+         }
+      }
+  }
+      
+      if (found == 1 ){ 
+       M--;  
+       printf("Account deleted successfully!\n"); 
+        userChoice(); 
+      }
+      
+         
+      if (found == 0 ){
+         printf("account does not exist , enter a key to return to the main menu and make an account , or 0 to exit \n");
+         scanf(" %c",&choice);
+         clearInputBuffer(); 
+
+         if (choice == '0' ){
+               printf("------exiting programme");
+               for(int k = 0 ; k < 6 ; k++ ){
+                 printf("-"); 
+                 Sleep(1000);  
+               } 
+               exit(0);
+           
+         }else {return ; }
+      
+      }
+       
 }
 
 void CustumorList(newAccount *account){
@@ -438,8 +444,63 @@ void CustumorList(newAccount *account){
    userChoice();
 }
 
+
+// Other functions 
+
+void userChoice(){
+   char choice;
+   printf("\nEnter a key to return to the main menu and 0 to exit : ");  
+   scanf(" %c",&choice); 
+   clearInputBuffer();
+
+   if (choice =='0'){
+       printf("------exiting programme");
+       for(int j = 0 ; j < 6 ; j++ ){
+         printf("-"); 
+         Sleep(1000);  
+       } 
+       exit(0);
+   }
+
+}
+
+void PrintAccountInfos(newAccount *account , int i ){
+   printf("\n--- Account Details ---\n"); 
+   printf("Account Number: %d\n", account[i].accNum);
+   printf("Name: %s\n", account[i].name);
+   printf("Date of Birth: %s\n", account[i].dateBirth);
+   printf("Age: %d\n", account[i].age);
+   printf("Address: %s\n", account[i].adress);
+   printf("Citizenship Number: %d\n", account[i].citizenshipNum);
+   printf("Phone Number: %d\n", account[i].phoneNum);
+   printf("Account Type: %s\n", account[i].accType);
+   printf("Amount Deposited: %d\n", account[i].amountDeposit);
+   printf("Date of deposite: %s\n", account[i].dateDeposite);
+
+   printf("-----------------------\n");
+}
+
+void GetDate(char CurrentDate[]){
+
+   time_t t ; //store time
+   time(&t) ; // get time 
+   struct tm *today = localtime(&t); // convert 
+   sprintf(CurrentDate, "%02d/%02d/%04d", today->tm_mday, today->tm_mon + 1, today->tm_year + 1900); // store date in CurrentDate
+
+}
+
+void ClearScreen() {
+   system("cls"); 
+}
+
 void clearInputBuffer() {
    while (getchar() != '\n'); // Clear all characters until newline
 }
+
+
+
+
+
+
 
 
