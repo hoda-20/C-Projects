@@ -130,7 +130,7 @@ char* password (){
     
    
    
-   printf("\nPlease enter the password \n ");
+   printf("\nPlease enter the password to enter the bank system  \n ");
     // 13 : enter in ascii , 8 : delete in ascii 
    while ((ch = _getch()) != 13 ){
      if (ch != 8 ){
@@ -241,7 +241,8 @@ void makeNewAccount (newAccount *account){
 }
 
 void ChangeAccountInfo(newAccount *account){
-   int accNum , choice , choice1 , newPhoneNumber; 
+   int accNum ,  newPhoneNumber;
+   char choice1 , choice  ;  
    int found = 0 ; 
    char newAdress[20];
   
@@ -251,19 +252,20 @@ void ChangeAccountInfo(newAccount *account){
   for (int i = 0 ; i<N ; i++){
      if (accNum == account[i].accNum ){
       found = 1 ;
-      do{ printf("which information do you want to change ?\n 1:Adress\n 2:Phone number "); 
-          scanf("%d",&choice1); 
-   }while(choice1!= 1 && choice1!=2);
+      do{ printf("which information do you want to change ?\n Press 1 to change :Adress\n Press 2 to change :Phone number "); 
+          scanf("%c",&choice1); 
+          clearInputBuffer();
+   }while(choice1!= '1' && choice1!='2');
      
 
-     if (choice1==1){
+     if (choice1=='1'){
          printf("\nEnter the new adress : "); 
          scanf("%s",newAdress);
          strcpy(account[i].adress , newAdress);
          printf("Adress changed !"); 
          break;
 
-     }else if (choice1 == 2 ){
+     }else if (choice1 == '2' ){
          printf("Enter the new phone number : ");
          scanf("%d",&newPhoneNumber); 
          account[i].phoneNum = newPhoneNumber ; 
@@ -276,9 +278,10 @@ void ChangeAccountInfo(newAccount *account){
   }
   //account does not exist 
   if (found == 0 ){
-   printf("account does not exist , enter a key to return to the main menu and make an account , or 0 to exit \n");
-   scanf("%d",&choice); 
-   if (choice == 0 ){
+   printf("Account does not exist , enter a key to return to the main menu and make an account , or 0 to exit \n");
+   scanf("%c",&choice); 
+   clearInputBuffer();
+   if (choice == '0' ){
          printf("------exiting programme");
          for(int j = 0 ; j < 6 ; j++ ){
            printf("-"); 
@@ -351,15 +354,17 @@ void Transactions(newAccount *account){
 }
 
 void checkExistingAccount(newAccount *account){
-   int choice , acNum  ;
+   char choice ; 
+   int acNum ; 
    int found = 0 ; 
    char name[30];
     do { printf("Do you want to check by :\n1:Account number\n2:Name  "); 
-         scanf("%d",&choice); 
-   }while (choice !=1 && choice !=2);
+         scanf("%c",&choice); 
+         clearInputBuffer();
+   }while (choice !='1' && choice !='2');
 
       //Search by account number 
-   if (choice == 1 ){
+   if (choice == '1' ){
       printf("Enter the account number "); 
       scanf("%d",&acNum); 
       for (int i = 0 ; i < N ; i++ ){
@@ -369,10 +374,10 @@ void checkExistingAccount(newAccount *account){
             break;
       }
    }
-       if (found == 0 ){ printf("Account not found , please return to the main menu to creat one ") ;}
+       
 
       //Search by name
-   } else if (choice == 2 ){
+   } else if (choice == '2' ){
       printf("Enter the name "); 
       scanf("%s", &name); 
 
@@ -383,8 +388,10 @@ void checkExistingAccount(newAccount *account){
                break ; 
          } 
     }
-         if (found == 0 ){printf("Account not found ! Please return to the main menu to creat one "); }
+         
 } 
+   if (found == 0 ){printf("Account not found ! Please return to the main menu to creat one "); }
+
    userChoice();
 
 }
@@ -430,23 +437,21 @@ void  DeleteAccount(newAccount *account ){
        
 }
 
-void CustumorList(newAccount *account){
-   printf("Number of accounts created up till now : %d\n",M);
-   printf("+------------+------------+---------------+------------+------------+\n");
-   printf("| Acc Number | Name       | Phone         | Address    | Deposit    |\n");
-   printf("+------------+------------+---------------+------------+------------+\n");
-   for (int i = 0 ; i< M ; i++ ){
-      printf("| %-10d | %-10s | %-13d | %-10s | %-10d |\n",
-         account[i].accNum, account[i].name, account[i].phoneNum, account[i].adress, account[i].amountDeposit);
-
+void CustumorList(newAccount *account) {
+   printf("Number of accounts created up till now : %d\n", M);
+   printf("+------------+------------+---------------+----------------+------------+\n");
+   printf("| Acc Number | Name       | Phone         | Address        | Deposit    |\n");
+   printf("+------------+------------+---------------+----------------+------------+\n");
+   for (int i = 0; i < M; i++) {
+       printf("| %-10d | %-10s | %-13d | %-14s | %-10d |\n",
+              account[i].accNum, account[i].name, account[i].phoneNum, account[i].adress, account[i].amountDeposit);
    }
-   printf("+------------+------------+---------------+------------+------------+\n");
+   printf("+------------+------------+---------------+----------------+------------+\n");
    userChoice();
 }
 
 
 // Other functions 
-
 void userChoice(){
    char choice;
    printf("\nEnter a key to return to the main menu and 0 to exit : ");  
